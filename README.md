@@ -1,2 +1,2 @@
-# Diamond-Dusters
+# DiamondDusters
 cleaning website
