@@ -155,5 +155,40 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { threshold: 0.35 });
     wipeSections.forEach(s => wipeObserver.observe(s));
 });
+const handVideo = document.getElementById("handVideo");
+const handCanvas = document.getElementById("handCanvas");
+
+if (handVideo && handCanvas) {
+    const ctx = handCanvas.getContext("2d");
+
+    handCanvas.width = 320;
+    handCanvas.height = 190;
+
+    handVideo.addEventListener("loadeddata", () => {
+        handVideo.play();
+
+        function drawHand() {
+            ctx.drawImage(handVideo, 0, 0, handCanvas.width, handCanvas.height);
+
+            const frame = ctx.getImageData(0, 0, handCanvas.width, handCanvas.height);
+            const data = frame.data;
+
+            for (let i = 0; i < data.length; i += 4) {
+                const r = data[i];
+                const g = data[i + 1];
+                const b = data[i + 2];
+
+                if (g > 90 && g > r * 1.25 && g > b * 1.25) {
+                    data[i + 3] = 0;
+                }
+            }
+
+            ctx.putImageData(frame, 0, 0);
+            requestAnimationFrame(drawHand);
+        }
+
+        drawHand();
+    });
+}
 
 
