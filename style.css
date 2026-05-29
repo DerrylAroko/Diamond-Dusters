@@ -977,5 +977,36 @@ footer {
         transform: none;
     }
 }
+<section id="home" class="hero">
+
+    <div class="hero-background"></div>
+
+    <div class="hero-content">
+
+        <span class="hero-badge">✨ Premium Service</span>
+
+        <div class="live-wipe">
+            <canvas id="handCanvas"></canvas>
+            <video id="handVideo" src="hand.mp4" muted playsinline preload="auto"></video>
+            <div class="wipe-words">Sparkling Clean Guaranteed</div>
+        </div>
+
+        <h2 class="hero-title">Luxury Home Cleaning</h2>
+
+        <p class="hero-subtitle">Shine bright like a diamond</p>
+
+        <div class="hero-buttons">
+
+            <button class="btn-primary" onclick="scrollToContact()">Get Your Quote</button>
+
+            <button class="btn-secondary" onclick="scrollToContact()">Learn More</button>
+
+        </div>
+
+    </div>
+
+    <div class="hero-decoration"></div>
+
+</section>
 
 
