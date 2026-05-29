@@ -1090,3 +1090,42 @@ footer {
     opacity: 0;
   }
 }
+.wipe {
+    position: absolute;
+    top: 120px;
+    left: -250px;
+    width: 220px;
+    height: 80px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.95),
+        transparent
+    );
+    filter: blur(10px);
+    transform: skewX(-20deg);
+    animation: wipeMove 4s linear infinite;
+    z-index: 10;
+    pointer-events: none;
+}
+
+@keyframes wipeMove {
+    0% {
+        left: -250px;
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    50% {
+        left: 50%;
+        opacity: 1;
+    }
+
+    100% {
+        left: 120%;
+        opacity: 0;
+    }
+}
