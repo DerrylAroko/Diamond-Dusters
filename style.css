@@ -36,6 +36,56 @@ header nav a {
     font-weight: 600;
     white-space: nowrap;         /* links don't break mid-word */
 }
+.wipe-reveal {
+    position: relative;
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #eaf4ff 0%, #ffffff 50%, #d6ecff 100%);
+    overflow: hidden;
+}
+
+/* The "foggy window" overlay that gets wiped */
+.wipe-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 30% 40%, rgba(255,255,255,.9), rgba(220,230,240,.95)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.4) 0 2px, transparent 2px 6px);
+    backdrop-filter: blur(4px);
+    -webkit-mask-image: radial-gradient(circle 0px at 0% 50%, transparent 99%, black 100%);
+            mask-image: radial-gradient(circle 0px at 0% 50%, transparent 99%, black 100%);
+    animation: wipe 3.2s ease-in-out forwards;
+    animation-play-state: paused;       /* starts when in view */
+    pointer-events: none;
+}
+
+.wipe-reveal.in-view .wipe-overlay { animation-play-state: running; }
+
+@keyframes wipe {
+    0%   { -webkit-mask-image: radial-gradient(circle 80px at -10% 50%, transparent 98%, black 100%);
+                   mask-image: radial-gradient(circle 80px at -10% 50%, transparent 98%, black 100%); }
+    50%  { -webkit-mask-image: radial-gradient(circle 140px at 50% 50%, transparent 98%, black 100%);
+                   mask-image: radial-gradient(circle 140px at 50% 50%, transparent 98%, black 100%); }
+    100% { -webkit-mask-image: radial-gradient(circle 1600px at 110% 50%, transparent 98%, black 100%);
+                   mask-image: radial-gradient(circle 1600px at 110% 50%, transparent 98%, black 100%); }
+}
+
+.wipe-text {
+    position: relative;
+    z-index: 2;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.4rem, 3.5vw, 2.6rem);
+    color: #1f4ea8;
+    text-align: center;
+    padding: 0 24px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 1s ease 1.8s, transform 1s ease 1.8s;
+}
+
+.wipe-reveal.in-view .wipe-text { opacity: 1; transform: translateY(0); }
 
 @media (min-width: 900px) {
     header nav { flex: 0 1 auto; }   /* on desktop nav sits inline again */
