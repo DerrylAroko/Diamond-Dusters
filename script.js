@@ -142,5 +142,18 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(el);
     });
 });
+// Trigger the window-wipe when the section scrolls into view
+document.addEventListener('DOMContentLoaded', () => {
+    const wipeSections = document.querySelectorAll('.wipe-reveal');
+    const wipeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                wipeObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.35 });
+    wipeSections.forEach(s => wipeObserver.observe(s));
+});
 
 
