@@ -36,32 +36,56 @@ header nav a {
     font-weight: 600;
     white-space: nowrap;         /* links don't break mid-word */
 }
+/* === Live hand-wipe reveal === */
 .wipe-reveal {
     position: relative;
-    min-height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #eaf4ff 0%, #ffffff 50%, #d6ecff 100%);
+    display: inline-block;
+    margin: 0 auto 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
     overflow: hidden;
+    padding: 4px 8px;
 }
 
-/* The "foggy window" overlay that gets wiped */
-.wipe-overlay {
+.wipe-reveal .wipe-text {
+    display: inline-block;
+    background: linear-gradient(90deg, #fff 50%, rgba(255,255,255,0) 50%);
+    background-size: 200% 100%;
+    background-position: 100% 0;   /* hidden by default */
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: background-position 1.6s ease;
+}
+
+.wipe-reveal .wipe-hand {
     position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(circle at 30% 40%, rgba(255,255,255,.9), rgba(220,230,240,.95)),
-        repeating-linear-gradient(45deg, rgba(255,255,255,.4) 0 2px, transparent 2px 6px);
-    backdrop-filter: blur(4px);
-    -webkit-mask-image: radial-gradient(circle 0px at 0% 50%, transparent 99%, black 100%);
-            mask-image: radial-gradient(circle 0px at 0% 50%, transparent 99%, black 100%);
-    animation: wipe 3.2s ease-in-out forwards;
-    animation-play-state: paused;       /* starts when in view */
-    pointer-events: none;
+    top: 50%;
+    left: -10%;
+    transform: translate(-100%, -50%) rotate(-15deg);
+    font-size: 1.6rem;
+    opacity: 0;
+    transition: none;
 }
 
-.wipe-reveal.in-view .wipe-overlay { animation-play-state: running; }
+/* triggered when scrolled into view */
+.wipe-reveal.in-view .wipe-text {
+    background-position: 0 0;       /* reveal left → right */
+}
+.wipe-reveal.in-view .wipe-hand {
+    animation: handWipe 1.6s ease forwards;
+}
+
+@keyframes handWipe {
+    0%   { left: -10%; opacity: 0; transform: translate(-100%, -50%) rotate(-15deg); }
+    10%  { opacity: 1; }
+    90%  { opacity: 1; }
+    100% { left: 110%; opacity: 0; transform: translate(0, -50%) rotate(10deg); }
+}
+
 
 @keyframes wipe {
     0%   { -webkit-mask-image: radial-gradient(circle 80px at -10% 50%, transparent 98%, black 100%);
