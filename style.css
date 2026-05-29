@@ -1009,4 +1009,84 @@ footer {
 
 </section>
 
+.hero {
+  position: relative;
+  height: 100vh;
+  background: black;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.hero-text {
+  position: relative;
+  color: white;
+  text-align: center;
+  z-index: 1;
+  opacity: 0;
+  animation: revealText 6s infinite;
+}
+
+.hero-text h1 {
+  font-size: 5rem;
+  letter-spacing: 3px;
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.wipe {
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255,255,255,0.9),
+    transparent
+  );
+  transform: skewX(-20deg);
+  animation: wipeMove 6s infinite;
+  z-index: 2;
+}
+
+@keyframes wipeMove {
+  0% {
+    left: -40%;
+  }
+
+  40% {
+    left: 120%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
+@keyframes revealText {
+  0% {
+    opacity: 0;
+  }
+
+  25% {
+    opacity: 0;
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  85% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
